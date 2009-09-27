@@ -1,0 +1,96 @@
+<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><style type="text/css">body { font-family: verdana, sans-serif; background-color: #fff;line-height: 20px; }a:link, a:visited { color: #4fa3da; }a:hover { text-decoration: none; color: #f65077; }div.header { border-bottom: 1px dashed #f65077; }code.header { margin-left: 30px; font-weight: bold;background-color: #fcf095; }h1 { font-size: 5em; margin: 0; padding-left: 30px; color: #4fa3da;clear: both; font-weight: bold; letter-spacing: -5px; }h1 a { text-decoration: none; }div.main{ float: left; width: 100%; }div.content { float: left; width: 70%; padding: 15px 0 15px 30px;line-height: 20px; }div.side{ float: left; padding: 10px; text-align: right;width: 20%; }div.footer{ text-align: center; border-top: 1px dashed #f65077;padding-top: 10px; font-size: small; }div.sheet { font-size: .8em; line-height: 17px; padding: 5px;font-family: courier, fixed-width; background-color: #e8e8e8; }pre.sheet { line-height: 15px; }li { list-style: none; }div.version { background-color: #fcf095; padding: 5px;width: 450px; margin-top: 50px; }p.error { background-color: #fcf095; padding: 5px; }div.clear{ clear: both; }div.clear_10 { clear: both; font-size: 10px; line-height: 10px; }textarea { font-family: courier; }code { background-color: #fcf095 }span.diff_cut { color: #f65077; }span.diff_add { color: #009933; }#ad .yield {font-size: 10px;font-family: Helvetica, sans-serif;margin-bottom: 5px;text-transform: uppercase;}#ad img { border: none; margin-bottom: 0; }#ad .blurb { font-size: 12px; margin-top: 5px;}}@media print {.side, .version, .footer { display: none; }div.content { width: 100%; }h1 a:link, h1 a:visited { color: #eee;}.header code { font-size: 18px; background: none; }div.header { border-bottom: none; }}</style><link type="application/atom+xml" rel="alternate" title="Recently Updated Cheat Sheets" href="http://feeds.feedburner.com/cheatsheets"/><title>$ cheat rubyprof</title></head><body><div class="main"><div class="header"><h1><a href="/">cheat sheets.</a></h1><code class="header">$ cheat rubyprof</code></div><div class="content"><pre class="sheet">Installation
+------------
+sudo gem install ruby-prof
+
+
+Usage
+-----
+Without changing your code:
+
+  $ ruby-prof your_ruby_app.rb
+
+Or, inside your code:
+
+  require 'ruby-prof'
+
+  # Profile the code
+  RubyProf.start
+  ...
+  [code to profile]
+  ...
+  result = RubyProf.stop
+
+  # Print a flat profile to text
+  printer = RubyProf::TextPrinter.new(result)
+  printer.print(STDOUT, 0)
+
+Or, use a block to tell ruby-prof what to profile:
+
+  require 'ruby-prof'
+
+  # Profile the code
+  result = RubyProf.profile do
+    ...
+    [code to profile]
+    ...
+  end
+
+  # Print a graph profile to text
+  printer = RubyProf::GraphPrinter.new(result)
+  printer.print(STDOUT, 0)
+
+Or, the old way:
+
+  require 'unprof'
+
+
+Setting Clock Modes
+-------------------
+In your code:
+
+  RubyProf.clock_mode = RubyProf::PROCESS_TIME
+  RubyProf.clock_mode = RubyProf::WALL_TIME
+  RubyProf.clock_mode = RubyProf::CPU_TIME
+
+Or, via environment variable:
+
+  export RUBY_PROF_CLOCK_MODE=(process|wall|cpu)
+
+
+Printing Graphs
+---------------
+Available printer types:
+
+  RubyProf::FlatPrinter - flat report in text format
+  RubyProf::GraphPrinter - call graph report in text format
+  RubyProf::GraphHtmlPrinter - call graph report in HTML (one file per thread)
+
+In your code:
+
+ result = RubyProf.end
+ printer = RubyProf::GraphPrinter.new(result)
+ printer.print(STDOUT, 0)
+
+
+Setting CPU Frequency
+---------------------
+In your code:
+
+  RubyProf.cpu_frequency = &lt;value&gt;
+
+Or in your environment:
+
+  export RUBY_PROF_CPU_FREQUENCY=&lt;value&gt;</pre><div class="version">Version <strong>1</strong>, updated 274 days ago.  <br/>. o 0 ( <a href="/e/rubyprof">edit</a> | <a href="/h/rubyprof">history</a> )</div></div><div class="side">( <a href="/a">add new</a> | <a href="/b">see all</a> )<ul><li><strong>updated sheets</strong></li><li><a href="http://feeds.feedburner.com/cheatsheets"><img alt="Recently Updated Cheat Sheets Feed" src="http://errtheblog.com/images/feed.png" border="0"/></a></li><li><a href="/s/rdf/">rdf</a></li><li><a href="/s/gsub/">gsub</a></li><li><a href="/s/smalltalk/">smalltalk</a></li><li><a href="/s/simpletest/">simpletest</a></li><li><a href="/s/screen/">screen</a></li><li><a href="/s/finder/">finder</a></li><li><a href="/s/xmpp/">xmpp</a></li><li><a href="/s/recursive/">recursive</a></li><li><a href="/s/regexp/">regexp</a></li><li><a href="/s/mplayer/">mplayer</a></li><li><a href="/s/wife/">wife</a></li><li><a href="/s/girlfriend/">girlfriend</a></li><li><a href="/s/readme/">readme</a></li><li><a href="/s/rspec/">rspec</a></li><li><a href="/s/boyfriend/">boyfriend</a></li></ul>    <div id="ad">
+      <p class="yield">Advertisement</p>
+
+      <script type="text/javascript">
+      //<![CDATA[
+      (function(site) {
+        document.write('<script type="text/javascript" src="'+
+          'http://y.errfree.com/'+site+'.js?'+
+          (new Date().getTime())+'"></'+'script>');
+        })('cheat');
+      //]]>
+      </script>
+    </div>
+</div><div class="clear"></div><div class="footer">Powered by <a href="http://code.whytheluckystiff.net/camping">Camping</a>, <a href="http://mongrel.rubyforge.org/">Mongrel</a> and, to a lesser extent, <a href="http://errtheblog.com/">Err the Blog</a>.</div></div><script src="http://getclicky.com/1070.js"> </script><noscript><img height=0 width=0 src="http://getclicky.com/1070ns.gif"></noscript></body></html>
